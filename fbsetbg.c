@@ -1,4 +1,3 @@
-/*	$Id: fbsetbg.c,v 1.29 2005/12/02 07:49:18 han Exp $	*/
 
 /*
  * Copyright (c) 2004 - 2005 Han Boetes <han@mijncomputer.nl>

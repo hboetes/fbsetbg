@@ -1,4 +1,3 @@
-/*	$Id: display_tips.c,v 1.1 2005/04/27 11:28:04 han Exp $	*/
 
 /*
  * Copyright (c) 2004 - 2005 Han Boetes <han@mijncomputer.nl>

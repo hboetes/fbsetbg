@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * $Id: fbsetbg.h,v 1.11 2006/03/30 21:51:22 han Exp $
  */
 
 #ifndef _fbsetbg_h

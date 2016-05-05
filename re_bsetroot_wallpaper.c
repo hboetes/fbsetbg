@@ -1,4 +1,3 @@
-/*	$Id: re_bsetroot_wallpaper.c,v 1.3 2005/05/08 18:26:37 han Exp $	*/
 
 /*
  * Copyright (c) 2004 - 2005 Han Boetes <han@mijncomputer.nl>

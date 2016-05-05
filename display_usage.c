@@ -1,4 +1,3 @@
-/*	$Id: display_usage.c,v 1.2 2005/05/08 21:31:18 han Exp $	*/
 
 /*
  * Copyright (c) 2004 - 2005 Han Boetes <han@mijncomputer.nl>

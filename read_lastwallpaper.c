@@ -1,4 +1,3 @@
-/*	$Id: read_lastwallpaper.c,v 1.14 2006/03/30 21:51:22 han Exp $	*/
 
 /*
  * Copyright (c) 2004 - 2005 Han Boetes <han@mijncomputer.nl>

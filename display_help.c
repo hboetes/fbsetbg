@@ -1,4 +1,3 @@
-/*	$Id: display_help.c,v 1.3 2005/05/08 12:28:15 han Exp $	*/
 
 /*
  * Copyright (c) 2004 - 2005 Han Boetes <han@mijncomputer.nl>

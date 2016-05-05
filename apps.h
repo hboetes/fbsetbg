@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * $Id: apps.h,v 1.2 2005/05/07 07:32:22 han Exp $
  */
 
 #ifndef _apps_h
