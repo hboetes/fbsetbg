@@ -1,0 +1,55 @@
+#!/bin/sh
+
+add_inc()
+{
+    echo "#define $1" >> config.h
+}
+
+note()
+{
+    echo -n "Looking for $@...  "
+    echo    "Looking for $@...  " >&3
+}
+
+case $1 in
+    -*)
+	echo "No help nor options available. Just run ./configure"
+	exit 0;
+	;;
+esac
+
+exec 3> config.log
+
+note 'internal arc4random'
+cat << EOF > testfile.c
+#include <stdlib.h>
+int main(void)
+{arc4random();return 0;}
+EOF
+if gcc testfile.c -o /dev/null 2>&3; then
+    echo Found.
+    extraflags="$extraflags -DHAVE_ARC4RANDOM"
+else
+    echo Not Found.
+    note 'external arc4random'
+    cat << EOF > testfile.c
+#include <bsd/stdlib.h>
+int main(void)
+{uint32_t arc4random(void);return 0;}
+EOF
+    if gcc -lbsd testfile.c -o /dev/null 2>&3; then
+	echo Found.
+	extraflags="$extraflags -DHAVE_ARC4RANDOM_EXT"
+	extralibs="$extralibs -lbsd"
+    else
+	echo Not Found.
+    fi
+fi
+
+rm testfile.c
+
+sed -e "s|@extraflags@|$extraflags|" \
+    -e "s|@extralibs@|$extralibs|" \
+    Makefile.in > Makefile
+
+echo "OK, now run \`make'."

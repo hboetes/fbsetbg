@@ -1,0 +1,22 @@
+Optionally you can install libbsd to get better randomness,so:
+
+   sudo apt-get install libbsd-dev
+
+Just run the usual:
+
+    ./configure
+    make
+    sudo make install
+
+
+If you want to add compilerflags do it like this:
+
+    make CFLAGS="-O2 -fstack-protector"
+
+
+If you don't like the installation pathes you can change them like this:
+
+    sudo make install prefix=/usr mandir=/usr/share/man
+
+
+Take a closer look at the Makefile.in to see what's possible.

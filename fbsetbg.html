@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- $Id: fbsetbg.html,v 1.5 2005/05/08 06:51:48 han Exp $ -->
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for OpenBSD (vers 1st March 2005), see www.w3.org">
+
+  <title>fbsetbg</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=us-ascii">
+  <link rel="STYLESHEET" href=
+  "http://www.xs4all.nl/~hanb/.data/docbook.css" type="text/css">
+</head>
+
+<body>
+  <h1>fbsetbg</h1>
+
+  <h3>A new application</h3>Because of the many problems with
+  bsetbg I wrote fbsetbg. fbsetbg is a wrapper that tries to find
+  a suitable background-setting app and then tries to set the
+  wallpaper using that app. You don't have to configure
+  fbsetbg. It just uses the first app it can find.<br>
+  Furthermore it provides clear error messages that will make
+  debugging problems a lot easier.
+
+  <h3>What fbsetbg needs</h3>fbsetbg discriminates and prefers to
+  use apps in this order:
+
+  <table border="1">
+    <tr>
+      <th>Application</th>
+
+      <th>Provided by</th>
+
+      <th>Transparency</th>
+
+      <th>Notes</th>
+    </tr>
+
+    <tr>
+      <td align="center">Esetroot</td>
+
+      <td align="center">Eterm</td>
+
+      <td align="center">yes</td>
+
+      <td>Don't build it yourself</td>
+    </tr>
+
+    <tr>
+      <td align="center">feh</td>
+
+      <td align="center">feh</td>
+
+      <td align="center">yes</td>
+
+      <td>no imagerendering</td>
+    </tr>
+
+    <tr>
+      <td align="center">wmsetbg</td>
+
+      <td align="center">WindowMaker</td>
+
+      <td align="center">yes</td>
+
+      <td></td>
+    </tr>
+
+    <tr>
+      <td align="center">xsri</td>
+
+      <td align="center">xsri</td>
+
+      <td align="center">yes</td>
+
+      <td>Only on RedHat</td>
+    </tr>
+
+    <tr>
+      <td align="center">chbg</td>
+
+      <td align="center">chbg</td>
+
+      <td align="center">yes</td>
+
+      <td>Doesn't return 1 on error</td>
+    </tr>
+
+    <tr>
+      <td align="center">display</td>
+
+      <td align="center">ImageMagick</td>
+
+      <td align="center">no</td>
+
+      <td></td>
+    </tr>
+
+    <tr>
+      <td align="center">qiv</td>
+
+      <td align="center">qiv</td>
+
+      <td align="center">no</td>
+
+      <td></td>
+    </tr>
+
+    <tr>
+      <td align="center">xv</td>
+
+      <td align="center">xv</td>
+
+      <td align="center">no</td>
+
+      <td>Huge and slow</td>
+    </tr>
+
+    <tr>
+      <td align="center">xsetroot</td>
+
+      <td align="center">xli</td>
+
+      <td align="center">no</td>
+
+      <td></td>
+    </tr>
+
+    <tr>
+      <td align="center">xli</td>
+
+      <td align="center">xli</td>
+
+      <td align="center">no</td>
+
+      <td></td>
+    </tr>
+
+    <tr>
+      <td align="center">xsetbg</td>
+
+      <td align="center">xli</td>
+
+      <td align="center">no</td>
+
+      <td></td>
+    </tr>
+  </table>
+
+  <p>Since we all want transparency for the menu nowadays I
+  recommend you install Esetroot. Which means of course you have to
+  install Eterm. I recommend you install the package provided by
+  your distro so you also install all dependencies. If you don't
+  want to use Eterm you can copy Esetroot to a safe place and then
+  uninstall Eterm.<br>
+  If you insist on building Eterm from a source package don't
+  forget to install <tt class="FILENAME">imlib</tt> and <tt class=
+  "FILENAME">libimlib-devel</tt>.</p>
+
+  <h3>Testing fbsetbg</h3>To test if everything works as planned
+  you can use: <tt class="FILENAME">fbsetbg -i</tt> from a term.
+
+  <h3>A new wallpaper every 10 minutes</h3>If you want to have a
+  random wallpaper every 10 minutes execute the command <tt class=
+  "FILENAME">crontab -e</tt> and then add a line like this:
+  <pre>
+    */10 * * * * 0 DISPLAY=:0.0 PATH=$PATH:/usr/X11R6/bin \
+    fbsetbg -R /path/to/your/wallpaperdirectory
+</pre>
+
+  <p><br>
+  <a href="http://validator.w3.org/check/referer"><img border="0"
+  src="http://www.xs4all.nl/~hanb/.data/valid-html401.png" alt=
+  "Valid HTML 4.01!" height="31" width="88"></a></p>
+</body>
+</html>

@@ -1,0 +1,16 @@
+I originally wrote fbsetbg, a shellscript provided with fluxbox. I
+was not terribly happy with it since all the portability concerns
+and after some long thinking I decided it would be best if fbsetbg
+was written in C. Only problem was that I was a C-noob. So this is
+my learning project.
+
+I think the code is pretty acceptable as it is right now. Of
+course splitting all the functions into seperate files is silly,
+but... instructive. I learned lot from the splitting.
+
+But any C guru who thinks he knows some improvements, please do
+send comments or patches. I love more fresh insights.
+
+THANKS
+
+  Marco Gerards, for auditing my code so far.

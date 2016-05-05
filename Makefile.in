@@ -1,0 +1,67 @@
+# Makefile for fbsetbg
+
+name=		fbsetbg
+
+prefix=		/usr/local
+bindir=		$(prefix)/bin
+libdir=		$(prefix)/lib
+includedir=	$(prefix)/include
+mandir=		$(prefix)/man
+
+
+CC=		gcc
+CFLAGS=		-O2 -g -pedantic -Wall -Wsign-compare -Werror
+CFLAGS+=
+INSTALL=	/usr/bin/install
+STRIP=		/usr/bin/strip
+
+
+OBJS= \
+	bsetroot_wallpaper.o \
+	checkextension.o \
+	cleanpath.o \
+	display_help.o \
+	display_tips.o \
+	display_usage.o \
+	fbsetbg.o \
+	find_setters.o \
+	last_wallpaper.o \
+	random_wallpaper.o \
+	re_bsetroot_wallpaper.o \
+	re_rotate_wallpaper.o \
+	read_lastwallpaper.o \
+	set_wallpaper.o \
+	write_lastwallpaper.o
+
+# Portability stuff.
+CFLAGS+=	@extraflags@
+LDFLAGS+=	@extralibs@
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+all: $(name)
+
+$(name): $(OBJS)
+	$(CC) $(OBJS) $(LDFLAGS) -o $(name)
+
+distclean: clean
+	-rm -f Makefile config.log *~ *.core core.*
+
+clean:
+	-rm -f *.o $(name)
+
+install: $(name) $(name).1
+	$(INSTALL) -d $(DESTDIR)$(bindir)
+	$(INSTALL) -d $(DESTDIR)$(mandir)/man1
+	$(INSTALL) -m 755 -s $(name)		$(DESTDIR)$(bindir)/$(name) ;\
+	$(INSTALL) -m 444 $(name).1		$(DESTDIR)$(mandir)/man1/$(name).1
+
+uninstall:
+	rm -f \
+	$(DESTDIR)$(bindir)/$(name) \
+	$(DESTDIR)$(mandir)/man1/$(name).1
+
+rebuild:
+	./configure ;\
+	make clean all
