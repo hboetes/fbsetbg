@@ -149,14 +149,7 @@
   </table>
 
   <p>Since we all want transparency for the menu nowadays I
-  recommend you install Esetroot. Which means of course you have to
-  install Eterm. I recommend you install the package provided by
-  your distro so you also install all dependencies. If you don't
-  want to use Eterm you can copy Esetroot to a safe place and then
-  uninstall Eterm.<br>
-  If you insist on building Eterm from a source package don't
-  forget to install <tt class="FILENAME">imlib</tt> and <tt class=
-  "FILENAME">libimlib-devel</tt>.</p>
+  recommend you install feh.</p>
 
   <h3>Testing fbsetbg</h3>To test if everything works as planned
   you can use: <tt class="FILENAME">fbsetbg -i</tt> from a term.
@@ -165,8 +158,7 @@
   random wallpaper every 10 minutes execute the command <tt class=
   "FILENAME">crontab -e</tt> and then add a line like this:
   <pre>
-    */10 * * * * 0 DISPLAY=:0.0 PATH=$PATH:/usr/X11R6/bin \
-    fbsetbg -R /path/to/your/wallpaperdirectory
+    */10 * * * * DISPLAY=:0.0 /usr/local/bin/fbsetbg -R /path/to/your/wallpaperdirectory
 </pre>
 
   <p><br>
