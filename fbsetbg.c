@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2004 - 2005 Han Boetes <han@mijncomputer.nl>
+ * Copyright (c) 2004 - 2016 Han Boetes <hboetes@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
