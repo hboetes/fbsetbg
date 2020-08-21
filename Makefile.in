@@ -6,7 +6,7 @@ prefix=		/usr/local
 bindir=		$(prefix)/bin
 libdir=		$(prefix)/lib
 includedir=	$(prefix)/include
-mandir=		$(prefix)/man
+mandir=		$(prefix)/share/man
 
 
 CC=		gcc
