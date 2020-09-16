@@ -9,12 +9,10 @@ includedir=	$(prefix)/include
 mandir=		$(prefix)/man
 
 
-CC=		gcc
+CC=		cc
 CFLAGS=		-O2 -g -pedantic -Wall -Wsign-compare -Werror
 CFLAGS+=
 INSTALL=	/usr/bin/install
-STRIP=		/usr/bin/strip
-
 
 OBJS= \
 	bsetroot_wallpaper.o \

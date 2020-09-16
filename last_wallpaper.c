@@ -29,41 +29,41 @@ int
 last_wallpaper(void)
 {
 
-	char	       *option, *options;
-	int             ret;
+        char           *option, *options;
+        int             ret;
 
-	option =  malloc(MAXPATHLEN);
-	if (option == NULL)
-		err(1, "out of memory");
-	options = malloc(MAXPATHLEN);
-	if (options == NULL)
-		err(1, "out of memory");
+        option =  malloc(MAXPATHLEN);
+        if (option == NULL)
+                err(1, "out of memory");
+        options = malloc(MAXPATHLEN);
+        if (options == NULL)
+                err(1, "out of memory");
 
-	read_lastwallpaper(option, options);
+        read_lastwallpaper(option, options);
 
-	if (strcmp(option, "full") == 0)
-		ret = set_wallpaper('F', options);
-	else if (strcmp(option, "aspect") == 0)
-		ret = set_wallpaper('A', options);
-	else if (strcmp(option, "tile") == 0)
-		ret = set_wallpaper('T', options);
-	else if (strcmp(option, "center") == 0)
-		ret = set_wallpaper('C', options);
-	else if (strcmp(option, "bsetroot") == 0)
-		ret = re_bsetroot_wallpaper(options);
-	else if (strcmp(option, "random") == 0)
-		ret = random_wallpaper(options, FALSE);
-	else if (strcmp(option, "rotate") == 0)
-		ret = re_rotate_wallpaper(options);
-	else
-		/* We should only get here if someone has messed
-		 * with the lastwallpaper file. */
-		errx(1,
-		    "something went wrong while reading %s. Try removing it",
-		    lastwallpaper);
+        if (strcmp(option, "full") == 0)
+                ret = set_wallpaper('F', options);
+        else if (strcmp(option, "aspect") == 0)
+                ret = set_wallpaper('A', options);
+        else if (strcmp(option, "tile") == 0)
+                ret = set_wallpaper('T', options);
+        else if (strcmp(option, "center") == 0)
+                ret = set_wallpaper('C', options);
+        else if (strcmp(option, "bsetroot") == 0)
+                ret = re_bsetroot_wallpaper(options);
+        else if (strcmp(option, "random") == 0)
+                ret = random_wallpaper(options, FALSE);
+        else if (strcmp(option, "rotate") == 0)
+                ret = re_rotate_wallpaper(options);
+        else
+                /* We should only get here if someone has messed
+                 * with the lastwallpaper file. */
+                errx(1,
+                    "something went wrong while reading %s. Try removing it",
+                    lastwallpaper);
 
-	free(option);
-	free(options);
+        free(option);
+        free(options);
 
-	return (ret);
+        return (ret);
 }

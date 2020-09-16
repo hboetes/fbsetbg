@@ -32,66 +32,66 @@ int
 read_lastwallpaper(char *option, char *wallpaper)
 {
 
-	char		*lstwllpprarray;
-	char		*tempstring;
-	char	        *display, *t1, *t2;
-	FILE	        *fp;
-	uint		 i;
-	int              found = FALSE, ret;
+        char            *lstwllpprarray;
+        char            *tempstring;
+        char            *display, *t1, *t2;
+        FILE            *fp;
+        uint             i;
+        int              found = FALSE, ret;
 
-	tempstring     = malloc(MAXPATHLEN);
-	if (tempstring == NULL)
-		err(1, "out of memory");
+        tempstring     = malloc(MAXPATHLEN);
+        if (tempstring == NULL)
+                err(1, "out of memory");
 
-	lstwllpprarray = malloc(MAXPATHLEN);
-	if (lstwllpprarray == NULL)
-		err(1, "out of memory");
+        lstwllpprarray = malloc(MAXPATHLEN);
+        if (lstwllpprarray == NULL)
+                err(1, "out of memory");
 
-	/* Copy the pointers for freeing (because of strsep */
-	t1             = tempstring;
-	t2             = lstwllpprarray;
+        /* Copy the pointers for freeing (because of strsep */
+        t1             = tempstring;
+        t2             = lstwllpprarray;
 
-	if ((display = getenv("DISPLAY")) == NULL)
-		errx(1, "the DISPLAY environment variable isn't set");
+        if ((display = getenv("DISPLAY")) == NULL)
+                errx(1, "the DISPLAY environment variable isn't set");
 
-	if ((fp = fopen(lastwallpaper, "r")) == NULL)
-		/* Most likely ~/.lastwallpaper doesn't exist */
-		err(1, "%s", lastwallpaper);
+        if ((fp = fopen(lastwallpaper, "r")) == NULL)
+                /* Most likely ~/.lastwallpaper doesn't exist */
+                err(1, "%s", lastwallpaper);
 
-	for (i = 0; i < MAXLLW; i++)
-	{
-		if (fgets(lstwllpprarray, MAXPATHLEN, fp) == NULL)
-				break;
+        for (i = 0; i < MAXLLW; i++)
+        {
+                if (fgets(lstwllpprarray, MAXPATHLEN, fp) == NULL)
+                                break;
 
-		ret = snprintf(tempstring, MAXPATHLEN, "|%s\n", display);
-		if (ret < 0 || ret >= MAXPATHLEN)
-		{
-			if (fclose(fp) != 0)
-				err(1, "%s", lastwallpaper);
-			errx(1, "error while trying to read %s", lastwallpaper);
-		}
+                ret = snprintf(tempstring, MAXPATHLEN, "|%s\n", display);
+                if (ret < 0 || ret >= MAXPATHLEN)
+                {
+                        if (fclose(fp) != 0)
+                                err(1, "%s", lastwallpaper);
+                        errx(1, "error while trying to read %s", lastwallpaper);
+                }
 
-		if (strstr(lstwllpprarray, tempstring))
-		{
-			(void)strncpy(option, strsep(&lstwllpprarray, "|"), MAXPATHLEN - 1);
-			option[MAXPATHLEN - 1] = '\0';
+                if (strstr(lstwllpprarray, tempstring))
+                {
+                        (void)strncpy(option, strsep(&lstwllpprarray, "|"), MAXPATHLEN - 1);
+                        option[MAXPATHLEN - 1] = '\0';
 
-			(void)strncpy(wallpaper, strsep(&lstwllpprarray, "|"), MAXPATHLEN - 1);
-			wallpaper[MAXPATHLEN - 1] = '\0';
+                        (void)strncpy(wallpaper, strsep(&lstwllpprarray, "|"), MAXPATHLEN - 1);
+                        wallpaper[MAXPATHLEN - 1] = '\0';
 
-			found = TRUE;
-			break;
-		}
-	}
+                        found = TRUE;
+                        break;
+                }
+        }
 
-	if (fclose(fp) != 0)
-		err(1, "%s", lastwallpaper);
+        if (fclose(fp) != 0)
+                err(1, "%s", lastwallpaper);
 
-	free(t1);
-	free(t2);
+        free(t1);
+        free(t2);
 
-	if (found == TRUE)
-		return(TRUE);
-	else
-		errx(1, "no wallpaper recorded for display %s", display);
+        if (found == TRUE)
+                return(TRUE);
+        else
+                errx(1, "no wallpaper recorded for display %s", display);
 }

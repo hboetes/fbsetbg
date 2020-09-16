@@ -60,55 +60,40 @@
 #endif
 
 
-#define	 FIRST	   'f'
-#define	 ALL	   'a'
-#define	 QUIET	   'q'
+#define  FIRST     'f'
+#define  ALL       'a'
+#define  QUIET     'q'
 
-#define	 TRUE	    0
-#define	 FALSE	    1
+#define  TRUE       0
+#define  FALSE      1
 
 #define  FORGET     1
 #define  REMEMBER   0
 
-#define	 MAXARGS  128		/* maximum args for bsetroot */
-#define  MAXLLW	   20		/* maximum lines in ~/.lastwallpaper */
+#define  MAXARGS  128           /* maximum args for bsetroot */
+#define  MAXLLW    20           /* maximum lines in ~/.lastwallpaper */
 
 #define DEFAULTARG 'F'          /* Default argument if no option is given. Also
-				 * used for random- and rotate-mode */
+                                 * used for random- and rotate-mode */
 
 
-#define	 LASTWALLPAPERIN ".lastwallpaper"
+#define  LASTWALLPAPERIN ".lastwallpaper"
 
-char     *lastwallpaper;	/* later on defined to $HOME/.lastwallpaper */
-
+extern char     *lastwallpaper; /* later on defined to $HOME/.lastwallpaper */
 extern void display_usage(void);
-
 extern void display_tips(void);
-
 extern void display_help(void);
-
 extern int cleanpath(char *filename);
-
 extern char * strtolower(char *input);
-
 extern int checkextension(char *filename);
-
 extern int read_lastwallpaper(char *option, char *wallpaper);
-
 extern int write_lastwallpaper(char *option, char *wallpaper);
-
 extern int find_setters(char option);
-
 extern int set_wallpaper(char option, char *filename);
-
 extern int bsetroot_wallpaper(int argc, char *argv[], int remember);
-
 extern int re_bsetroot_wallpaper(char *arguments);
-
 extern int random_wallpaper(char *wall_path, int remember);
-
 extern int re_rotate_wallpaper(char *wallpaper);
-
 extern int last_wallpaper(void);
 
 #endif /* _fbsetbg_h */

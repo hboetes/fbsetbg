@@ -22,119 +22,120 @@
  */
 
 #include "fbsetbg.h"
+char     *lastwallpaper;
 
 /* The main function, it parses the arguments */
 int
 main(int argc, char *argv[])
 {
 
-	extern char    *optarg;
-	extern int	optind;
+        extern char    *optarg;
+        extern int      optind;
 
-	int		ret;
-	int		ch;
+        int             ret;
+        int             ch;
 
-	if (argc == 1)
-	{
-		display_usage();
-		return (FALSE);
-	}
+        if (argc == 1)
+        {
+                display_usage();
+                return (FALSE);
+        }
 
-	while ((ch = getopt(argc, argv, "F:f:C:c:T:t:A:a:BbR:r:o:lisph")) != -1)
-	{
-		/* Check for a sane length */
-		if (optarg != NULL && (strlen(optarg) > MAXPATHLEN))
-			err(1,"try less options");
+        while ((ch = getopt(argc, argv, "F:f:C:c:T:t:A:a:BbR:r:o:lisph")) != -1)
+        {
+                /* Check for a sane length */
+                if (optarg != NULL && (strlen(optarg) > MAXPATHLEN))
+                        err(1,"try less options");
 
-		/* informational stuff, doesn't need lastwallpaper */
-		switch (ch)
-		{
-		case 'i':
-			find_setters(FIRST);
-			break;
-		case 's':
-			find_setters(ALL);
-			break;
-		case 'p':
-			display_tips();
-			return (TRUE);
-		case 'h':
-			display_help();
-			return (TRUE);
-		}
-		/* Only now initialize lastwallpaper. */
-		lastwallpaper = malloc(MAXPATHLEN);
+                /* informational stuff, doesn't need lastwallpaper */
+                switch (ch)
+                {
+                case 'i':
+                        find_setters(FIRST);
+                        break;
+                case 's':
+                        find_setters(ALL);
+                        break;
+                case 'p':
+                        display_tips();
+                        return (TRUE);
+                case 'h':
+                        display_help();
+                        return (TRUE);
+                }
+                /* Only now initialize lastwallpaper. */
+                lastwallpaper = malloc(MAXPATHLEN);
 
-		/* define the lastwallpaperfile */
-		ret = snprintf(lastwallpaper, MAXPATHLEN,
-		    "%s/%s", getenv("HOME"), LASTWALLPAPERIN);
-		if (ret < 0 || ret >= MAXPATHLEN)
-			errx(1,"$HOME too big");
+                /* define the lastwallpaperfile */
+                ret = snprintf(lastwallpaper, MAXPATHLEN,
+                    "%s/%s", getenv("HOME"), LASTWALLPAPERIN);
+                if (ret < 0 || ret >= MAXPATHLEN)
+                        errx(1,"$HOME too big");
 
-		switch (ch)
-		{
-			/* basic setter functions */
-			/* set_wallpaper never returns; no need to break. */
-		case 'F':
-			ret = set_wallpaper(ch, optarg);
-			break;
-		case 'f':
-			ret = set_wallpaper(ch, optarg);
-			break;
+                switch (ch)
+                {
+                        /* basic setter functions */
+                        /* set_wallpaper never returns; no need to break. */
+                case 'F':
+                        ret = set_wallpaper(ch, optarg);
+                        break;
+                case 'f':
+                        ret = set_wallpaper(ch, optarg);
+                        break;
 
-		case 'C':
-			ret = set_wallpaper(ch, optarg);
-			break;
-		case 'c':
-			ret = set_wallpaper(ch, optarg);
-			break;
+                case 'C':
+                        ret = set_wallpaper(ch, optarg);
+                        break;
+                case 'c':
+                        ret = set_wallpaper(ch, optarg);
+                        break;
 
-		case 'T':
-			ret = set_wallpaper(ch, optarg);
-			break;
-		case 't':
-			ret = set_wallpaper(ch, optarg);
-			break;
+                case 'T':
+                        ret = set_wallpaper(ch, optarg);
+                        break;
+                case 't':
+                        ret = set_wallpaper(ch, optarg);
+                        break;
 
-		case 'A':
-			ret = set_wallpaper(ch, optarg);
-			break;
-		case 'a':
-			ret = set_wallpaper(ch, optarg);
-			break;
-			/* specials build around the previous commandset */
-		case 'B':
-			ret = bsetroot_wallpaper(argc, argv, FORGET);
-			break;
-		case 'b':
-			ret = bsetroot_wallpaper(argc, argv, REMEMBER);
-			break;
+                case 'A':
+                        ret = set_wallpaper(ch, optarg);
+                        break;
+                case 'a':
+                        ret = set_wallpaper(ch, optarg);
+                        break;
+                        /* specials build around the previous commandset */
+                case 'B':
+                        ret = bsetroot_wallpaper(argc, argv, FORGET);
+                        break;
+                case 'b':
+                        ret = bsetroot_wallpaper(argc, argv, REMEMBER);
+                        break;
 
-		case 'R':
-			ret = random_wallpaper(optarg, FORGET);
-			break;
-		case 'r':
-			ret = random_wallpaper(optarg, REMEMBER);
-			break;
-		case 'o':
-			ret = set_wallpaper(ch, optarg);
-			break;
+                case 'R':
+                        ret = random_wallpaper(optarg, FORGET);
+                        break;
+                case 'r':
+                        ret = random_wallpaper(optarg, REMEMBER);
+                        break;
+                case 'o':
+                        ret = set_wallpaper(ch, optarg);
+                        break;
 
-		case 'l':
-			ret = last_wallpaper();
-			break;
-		default:
-			display_usage();
-			ret = FALSE;
-			break;
-		}
-		free(lastwallpaper);
-		return (ret);
-	}
-	argc -= optind;
-	argv += optind;
-	/* Getopt didn't find any options so lets assume the argument is a
-	 * wallpaper and try to set this wallpaper with the default argument */
-	ret = set_wallpaper(DEFAULTARG, argv[0]);
-	exit (ret);
+                case 'l':
+                        ret = last_wallpaper();
+                        break;
+                default:
+                        display_usage();
+                        ret = FALSE;
+                        break;
+                }
+                free(lastwallpaper);
+                return (ret);
+        }
+        argc -= optind;
+        argv += optind;
+        /* Getopt didn't find any options so lets assume the argument is a
+         * wallpaper and try to set this wallpaper with the default argument */
+        ret = set_wallpaper(DEFAULTARG, argv[0]);
+        exit (ret);
 }

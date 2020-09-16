@@ -27,16 +27,16 @@
 void
 display_usage(void)
 {
-	extern char    *__progname;
+        extern char    *__progname;
 
-	/* TODO [-u / -U wallpapersetter] */
-	fprintf(stderr,
-	    "\n"
-	    "Usage: %s [-fFcCtTaAo /path/to/wallpaper]\n"
-	    "		    [-rR /path/to/wallpaperdirectory]\n"
-	    "		    [-bB bsetrootoptions]\n"
-	    "               [-lisp]\n\n"
-	    "Use ``%s -h\'\' for a complete help message.\n\n",
-	    __progname, __progname);
-	return;
+        /* TODO [-u / -U wallpapersetter] */
+        fprintf(stderr,
+            "\n"
+            "Usage: %s [-fFcCtTaAo /path/to/wallpaper]\n"
+            "               [-rR /path/to/wallpaperdirectory]\n"
+            "               [-bB bsetrootoptions]\n"
+            "               [-lisp]\n\n"
+            "Use ``%s -h\'\' for a complete help message.\n\n",
+            __progname, __progname);
+        return;
 }

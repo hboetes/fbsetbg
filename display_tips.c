@@ -27,26 +27,26 @@
 void
 display_tips(void)
 {
-	extern char *__progname;
-	printf(
+        extern char *__progname;
+        printf(
 
-		"Common tips to use with %s:\n\n"
+                "Common tips to use with %s:\n\n"
 
-		    " 1) To replace all occurrences of bsetbg with %s in a file\n"
-		    "	 use this command:\n\n"
+                    " 1) To replace all occurrences of bsetbg with %s in a file\n"
+                    "    use this command:\n\n"
 
-		    "	   perl -pi -e 's,([^f]|^)bsetbg,%s,' filename\n\n"
+                    "      perl -pi -e 's,([^f]|^)bsetbg,%s,' filename\n\n"
 
-		    " 2) If you want the style to set the wallpaper and you want %s to\n"
-		    "	 remember the previous wallpaper put this in your ~/.fluxbox/init\n\n"
+                    " 2) If you want the style to set the wallpaper and you want %s to\n"
+                    "    remember the previous wallpaper put this in your ~/.fluxbox/init\n\n"
 
-		    "	   session.screen0.rootCommand:	   %s -l\n\n"
+                    "      session.screen0.rootCommand:    %s -l\n\n"
 
-		    " 3) Use %s -i to find out what wallpapersetter will be\n"
-		    "	 used and what %s thinks about it.\n\n"
+                    " 3) Use %s -i to find out what wallpapersetter will be\n"
+                    "    used and what %s thinks about it.\n\n"
 
-		    ,__progname, __progname, __progname, __progname
-		    ,__progname, __progname, __progname);
+                    ,__progname, __progname, __progname, __progname
+                    ,__progname, __progname, __progname);
 
-	return;
+        return;
 }

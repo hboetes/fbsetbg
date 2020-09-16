@@ -31,20 +31,20 @@
 int
 cleanpath(char *filename)
 {
-	char		*temppath;
+        char            *temppath;
 
- 	if ((temppath = strdup(filename)) == NULL)
-		errx(1, "can't allocate memory.");
+        if ((temppath = strdup(filename)) == NULL)
+                errx(1, "can't allocate memory.");
 
-	if (strlen(temppath) > MAXPATHLEN)
-		errx(1, "try something shorter");
+        if (strlen(temppath) > MAXPATHLEN)
+                errx(1, "try something shorter");
 
-	if ((strchr(temppath, '`')) != NULL || (strchr(temppath, '$')) != NULL)
-		errx(1, "Evil chars detected in %s", temppath);
+        if ((strchr(temppath, '`')) != NULL || (strchr(temppath, '$')) != NULL)
+                errx(1, "Evil chars detected in %s", temppath);
 
-	if (realpath(temppath, filename) == NULL)
-		errx(1, "can't find the realpath of %s", filename);
+        if (realpath(temppath, filename) == NULL)
+                errx(1, "can't find the realpath of %s", filename);
 
-	free(temppath);
-	return (TRUE);
+        free(temppath);
+        return (TRUE);
 }

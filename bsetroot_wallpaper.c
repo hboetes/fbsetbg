@@ -28,54 +28,54 @@
 int
 bsetroot_wallpaper(int argc, char *argv[], int remember)
 {
-	char *arguments[MAXARGS];
-	int i, pid, ret;
-	char *optstring, *tempstring = ""; /* stupid compiler :-) */
+        char *arguments[MAXARGS];
+        int i, pid, ret;
+        char *optstring, *tempstring = ""; /* stupid compiler :-) */
 
-	optstring = malloc(MAXPATHLEN);
-	if (optstring == NULL)
-		err(1, "out of memory");
+        optstring = malloc(MAXPATHLEN);
+        if (optstring == NULL)
+                err(1, "out of memory");
 
-	/* The arguments have to be shifted */
-	for(i = 1; i < argc && i < MAXARGS; i++)
-		arguments[i - 1] = argv[i];
+        /* The arguments have to be shifted */
+        for(i = 1; i < argc && i < MAXARGS; i++)
+                arguments[i - 1] = argv[i];
 
-	/* The mantra for executing something in the background. */
-	pid = fork();
-	if (pid == -1)
-		err(1, "couldn't fork");
+        /* The mantra for executing something in the background. */
+        pid = fork();
+        if (pid == -1)
+                err(1, "couldn't fork");
 
-	if (!pid)
-	{
-		ret = execvp("bsetroot", arguments);
-		if (ret == -1)
-		{
-			ret = execvp("fbsetroot", arguments);
-			if (ret == -1)
-				/* Not that bsetroot can actually return errors,
-				 * but suppose it doesn't exist. */
-				err(1, "executing your bsetroot command failed");
-		}
-	}
+        if (!pid)
+        {
+                ret = execvp("bsetroot", arguments);
+                if (ret == -1)
+                {
+                        ret = execvp("fbsetroot", arguments);
+                        if (ret == -1)
+                                /* Not that bsetroot can actually return errors,
+                                 * but suppose it doesn't exist. */
+                                err(1, "executing your bsetroot command failed");
+                }
+        }
 
-	if (pid)
-		waitpid(pid, NULL, 0);
+        if (pid)
+                waitpid(pid, NULL, 0);
 
-	if (remember == REMEMBER)
-	{
-		/* Copy the arguments to a string. */
-		for(i = 1; arguments[i] != 0; i++)
-		{
-			if ((tempstring = strdup(optstring)) == NULL)
-				err(1, "out of memory");
-			ret = snprintf(optstring, MAXPATHLEN,
-			    "%s %s", tempstring, arguments[i]);
-			if (ret < 0 || ret >= MAXPATHLEN)
-				errx(1, "too many arguments to save");
-			free(tempstring);
-		}
-		write_lastwallpaper("bsetroot", optstring);
-	}
-	free(optstring);
-	return (TRUE);
+        if (remember == REMEMBER)
+        {
+                /* Copy the arguments to a string. */
+                for(i = 1; arguments[i] != 0; i++)
+                {
+                        if ((tempstring = strdup(optstring)) == NULL)
+                                err(1, "out of memory");
+                        ret = snprintf(optstring, MAXPATHLEN,
+                            "%s %s", tempstring, arguments[i]);
+                        if (ret < 0 || ret >= MAXPATHLEN)
+                                errx(1, "too many arguments to save");
+                        free(tempstring);
+                }
+                write_lastwallpaper("bsetroot", optstring);
+        }
+        free(optstring);
+        return (TRUE);
 }

@@ -27,46 +27,46 @@
 void
 display_help(void)
 {
-	display_usage();
-	printf(
-		"Options:\n\n"
+        display_usage();
+        printf(
+                "Options:\n\n"
 
-		    "	 -f  Set fullscreen wallpaper.\n"
-		    "	 -c  Set centered wallpaper.\n"
-		    "	 -t  Set tiled wallpaper.\n"
-		    "	 -a  Set maximized wallpaper, preserving aspect.\n"
-		    "	     (if your bgsetter doesn't support this option\n"
-		    "	       fall back to fullscreen)\n"
-		    /*
-		     * TODO " -u Use specified wallpapersetter, use no argument
-		     * to forget.\n");
-		     */
-		    "	 -b  Forward the options to bsetroot.\n"
-		    "	 -r  Set random wallpaper from a directory.\n"
-		    "	 -o  Set first wallpaper to be rotated. (Use -l to rotate)\n\n"
+                    "    -f  Set fullscreen wallpaper.\n"
+                    "    -c  Set centered wallpaper.\n"
+                    "    -t  Set tiled wallpaper.\n"
+                    "    -a  Set maximized wallpaper, preserving aspect.\n"
+                    "        (if your bgsetter doesn't support this option\n"
+                    "          fall back to fullscreen)\n"
+                    /*
+                     * TODO " -u Use specified wallpapersetter, use no argument
+                     * to forget.\n");
+                     */
+                    "    -b  Forward the options to bsetroot.\n"
+                    "    -r  Set random wallpaper from a directory.\n"
+                    "    -o  Set first wallpaper to be rotated. (Use -l to rotate)\n\n"
 
-		    "	 -F,-C,-T,-A,-B,-R  Same as uncapsed but without remembering.\n\n");
+                    "    -F,-C,-T,-A,-B,-R  Same as uncapsed but without remembering.\n\n");
 
-	printf(
-		"	 -h  Display this help.\n\n"
+        printf(
+                "        -h  Display this help.\n\n"
 
-		    "	 -l  Repeat previous command.\n\n"
+                    "    -l  Repeat previous command.\n\n"
 
-		    "	 -i  Information about selected wallpapersetter.\n"
-		    "	 -s  Information about all wallpapersetters on this system.\n"
-		    "	 -p  Tips.\n\n"
+                    "    -i  Information about selected wallpapersetter.\n"
+                    "    -s  Information about all wallpapersetters on this system.\n"
+                    "    -p  Tips.\n\n"
 
-		    "Files:\n\n"
+                    "Files:\n\n"
 
-		    "	 ~/.lastwallpaper     In this file the wallpaper you set\n"
-		    "			      will be stored,"
-		    " for the -l option:\n\n");
-	printf(
-		"Environment variables:\n\n"
-		    "	 DISPLAY     The display you want to set the"
-		    " wallpaper on. For example:\n\n"
+                    "    ~/.lastwallpaper     In this file the wallpaper you set\n"
+                    "                         will be stored,"
+                    " for the -l option:\n\n");
+        printf(
+                "Environment variables:\n\n"
+                    "    DISPLAY     The display you want to set the"
+                    " wallpaper on. For example:\n\n"
 
-		    "		       DISPLAY=:0.0 fbsetbg -l\n\n");
+                    "                  DISPLAY=:0.0 fbsetbg -l\n\n");
 
-	exit(0);
+        exit(0);
 }

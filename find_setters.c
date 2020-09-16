@@ -32,63 +32,63 @@ int
 find_setters(char option)
 {
 
-	char	       *path, *path_element, *p;
-	int		i, found_something = FALSE;
-	struct stat	sbuf;
+        char           *path, *path_element, *p;
+        int             i, found_something = FALSE;
+        struct stat     sbuf;
 
-	char		*filename;
+        char            *filename;
 
-	filename = malloc(MAXPATHLEN);
-	if (filename == NULL)
-		err(1, "out of memory");
+        filename = malloc(MAXPATHLEN);
+        if (filename == NULL)
+                err(1, "out of memory");
 
-	if ((p = getenv("PATH")) == NULL)
-		err(1, "can't get $PATH from environment");
+        if ((p = getenv("PATH")) == NULL)
+                err(1, "can't get $PATH from environment");
 
-	if ((path = strdup(p)) == NULL)
-		errx(1, "can't allocate memory.");
-	/* Now that we're done with p as a pointer to your PATH, use it to point
-	 * to the start of path to free() the right memoryspace */
-	p = path;
-	while ((path_element = strsep(&path, ":")) != NULL)
-	{
-		for (i = 0; apps[i].name != NULL; i++)
-		{
-			(void) snprintf(filename, MAXPATHLEN, "%s/%s",
-			    path_element, apps[i].name);
+        if ((path = strdup(p)) == NULL)
+                errx(1, "can't allocate memory.");
+        /* Now that we're done with p as a pointer to your PATH, use it to point
+         * to the start of path to free() the right memoryspace */
+        p = path;
+        while ((path_element = strsep(&path, ":")) != NULL)
+        {
+                for (i = 0; apps[i].name != NULL; i++)
+                {
+                        (void) snprintf(filename, MAXPATHLEN, "%s/%s",
+                            path_element, apps[i].name);
 
-			if ((stat(filename, &sbuf) == 0) &&
-			    S_ISREG(sbuf.st_mode) &&
-			    access(filename, X_OK) == 0)
-			{
-				switch (option)
-				{
-				case FIRST:
-					printf("I found %s:\n", apps[i].name);
-					printf("%s %s\n",
-					    apps[i].name, apps[i].debug);
-					free(p);
-					free(filename);
-					exit(0);
-				case ALL:
-					printf("I found %s:\n", apps[i].name);
-					printf("%s %s\n",
-					    apps[i].name, apps[i].debug);
-					found_something = TRUE;
-					break;
-				case QUIET:
-					free(p);
-					free(filename);
-					return (i);
-				}
-			}
-		}
-	}
-	free(p);
-	free(filename);
-	if (found_something == FALSE)
-		errx(1, "I didn't find any wallpapersetters\n"
-		    "Read all about choosing the right setter here:\n"
-		    "  http://homepage.boetes.org/software/fbsetbg/fbsetbg.html");
-	exit (0);
+                        if ((stat(filename, &sbuf) == 0) &&
+                            S_ISREG(sbuf.st_mode) &&
+                            access(filename, X_OK) == 0)
+                        {
+                                switch (option)
+                                {
+                                case FIRST:
+                                        printf("I found %s:\n", apps[i].name);
+                                        printf("%s %s\n",
+                                            apps[i].name, apps[i].debug);
+                                        free(p);
+                                        free(filename);
+                                        exit(0);
+                                case ALL:
+                                        printf("I found %s:\n", apps[i].name);
+                                        printf("%s %s\n",
+                                            apps[i].name, apps[i].debug);
+                                        found_something = TRUE;
+                                        break;
+                                case QUIET:
+                                        free(p);
+                                        free(filename);
+                                        return (i);
+                                }
+                        }
+                }
+        }
+        free(p);
+        free(filename);
+        if (found_something == FALSE)
+                errx(1, "I didn't find any wallpapersetters\n"
+                    "Read all about choosing the right setter here:\n"
+                    "  http://homepage.boetes.org/software/fbsetbg/fbsetbg.html");
+        exit (0);
 }

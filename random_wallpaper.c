@@ -31,90 +31,90 @@ random_wallpaper(char *wall_path, int remember)
 {
 
 #ifndef HAVE_ARC4RANDOM
-	struct timeval	tv[2];
+        struct timeval  tv[2];
 #endif
-	uint		random;
-	char	       *path2wallpaper;
-	uint		i = 0;
-	int             ret;
-	int		found = FALSE;
+        uint            random;
+        char           *path2wallpaper;
+        uint            i = 0;
+        int             ret;
+        int             found = FALSE;
 
-	DIR	       *dirp;
-	struct dirent  *dp;
+        DIR            *dirp;
+        struct dirent  *dp;
 
-	path2wallpaper = malloc(MAXPATHLEN);
-	if (path2wallpaper == NULL)
-		err(1, "out of memory");
+        path2wallpaper = malloc(MAXPATHLEN);
+        if (path2wallpaper == NULL)
+                err(1, "out of memory");
 
-	cleanpath(wall_path);
+        cleanpath(wall_path);
 
-	/* Open the directory */
-	if ((dirp = opendir(wall_path)) == NULL)
-		err(1, "%s", wall_path);
+        /* Open the directory */
+        if ((dirp = opendir(wall_path)) == NULL)
+                err(1, "%s", wall_path);
 
-	/* Count the number of image-files */
-	while ((dp = readdir(dirp)) != NULL)
-	{
-		/* step over . and .. */
-		if (dp->d_name[0] == '.')
-		{
-			if (dp->d_name[1] == '\0' ||
-			    (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))
-				continue;
-		}
-		/* check the extension of the file */
-		if (checkextension(dp->d_name) == 0)
-			i++;
-	}
+        /* Count the number of image-files */
+        while ((dp = readdir(dirp)) != NULL)
+        {
+                /* step over . and .. */
+                if (dp->d_name[0] == '.')
+                {
+                        if (dp->d_name[1] == '\0' ||
+                            (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))
+                                continue;
+                }
+                /* check the extension of the file */
+                if (checkextension(dp->d_name) == 0)
+                        i++;
+        }
 
-	/* Verify at least one file has been found. */
-	if (i < 1)
-		errx(1, "directory %s does not contain any wallpapers",
-		    wall_path);
+        /* Verify at least one file has been found. */
+        if (i < 1)
+                errx(1, "directory %s does not contain any wallpapers",
+                    wall_path);
 
-	/* Use gettimeofday to get a quick and dirty random number. It's not
-	 * very random so try to get your hands on arc4random */
+        /* Use gettimeofday to get a quick and dirty random number. It's not
+         * very random so try to get your hands on arc4random */
 #ifdef HAVE_ARC4RANDOM
-	random = (uint)arc4random();
+        random = (uint)arc4random();
 #else
-	gettimeofday(&tv[0], NULL);
-	random = (uint)tv[0].tv_usec;
+        gettimeofday(&tv[0], NULL);
+        random = (uint)tv[0].tv_usec;
 #endif
-	random %= i;
-	i = 0;
+        random %= i;
+        i = 0;
 
-	/* Reset to first file in directory structure */
-	rewinddir(dirp);
-	while ((dp = readdir(dirp)) != NULL)
-	{
-		/* step over . and .. */
-		if (dp->d_name[0] == '.')
-		{
-			if (dp->d_name[1] == '\0' ||
-			    (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))
-				continue;
-		}
+        /* Reset to first file in directory structure */
+        rewinddir(dirp);
+        while ((dp = readdir(dirp)) != NULL)
+        {
+                /* step over . and .. */
+                if (dp->d_name[0] == '.')
+                {
+                        if (dp->d_name[1] == '\0' ||
+                            (dp->d_name[1] == '.' && dp->d_name[2] == '\0'))
+                                continue;
+                }
 
-		/* if it's a picture and i equals the generated random number */
-		if (checkextension(dp->d_name) == 0 && i++ == random)
-		{
-			ret = snprintf(path2wallpaper, MAXPATHLEN,
-			    "%s/%s", wall_path, dp->d_name);
-			if (ret < 0 || ret >= MAXPATHLEN)
-				errx(1, "arguments out of bounds for pathname");
-			if (remember == REMEMBER)
-				write_lastwallpaper("random", wall_path);
-			/* TODO support other options? */
-			found = TRUE;
-			set_wallpaper(DEFAULTARG, path2wallpaper);
-			break;
-		}
-	}
-	/* No wallpaper was found. */
-	free(path2wallpaper);
-	closedir(dirp);
-	if (found == TRUE)
-		return(TRUE);
-	else
-		errx(1, "no wallpaper was found in %s", wall_path);
+                /* if it's a picture and i equals the generated random number */
+                if (checkextension(dp->d_name) == 0 && i++ == random)
+                {
+                        ret = snprintf(path2wallpaper, MAXPATHLEN,
+                            "%s/%s", wall_path, dp->d_name);
+                        if (ret < 0 || ret >= MAXPATHLEN)
+                                errx(1, "arguments out of bounds for pathname");
+                        if (remember == REMEMBER)
+                                write_lastwallpaper("random", wall_path);
+                        /* TODO support other options? */
+                        found = TRUE;
+                        set_wallpaper(DEFAULTARG, path2wallpaper);
+                        break;
+                }
+        }
+        /* No wallpaper was found. */
+        free(path2wallpaper);
+        closedir(dirp);
+        if (found == TRUE)
+                return(TRUE);
+        else
+                errx(1, "no wallpaper was found in %s", wall_path);
 }

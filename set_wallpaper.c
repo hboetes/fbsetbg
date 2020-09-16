@@ -33,68 +33,68 @@ int
 set_wallpaper(char option, char *filename)
 {
 
-	int		setter, ret = 0;
-	char		*command;
+        int             setter, ret = 0;
+        char            *command;
 
-	command = malloc(MAXPATHLEN);
-	if (command == NULL)
-		err(1, "out of memory");
+        command = malloc(MAXPATHLEN);
+        if (command == NULL)
+                err(1, "out of memory");
 
-	if (access(filename, R_OK) != 0)
-		err(1, "%s", filename);
+        if (access(filename, R_OK) != 0)
+                err(1, "%s", filename);
 
-	setter = find_setters(QUIET);
+        setter = find_setters(QUIET);
 
-	cleanpath(filename);
+        cleanpath(filename);
 
-	switch (option)
-	{
-	case 'f':
-		write_lastwallpaper("full", filename);
-		/* fallthrough */
-	case 'F':
-		ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
-		    apps[setter].name, apps[setter].full, filename);
-		break;
+        switch (option)
+        {
+        case 'f':
+                write_lastwallpaper("full", filename);
+                /* fallthrough */
+        case 'F':
+                ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
+                    apps[setter].name, apps[setter].full, filename);
+                break;
 
-	case 'c':
-		write_lastwallpaper("center", filename);
-		/* fallthrough */
-	case 'C':
-		ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
-		    apps[setter].name, apps[setter].center, filename);
-		break;
+        case 'c':
+                write_lastwallpaper("center", filename);
+                /* fallthrough */
+        case 'C':
+                ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
+                    apps[setter].name, apps[setter].center, filename);
+                break;
 
-	case 'a':
-		write_lastwallpaper("aspect", filename);
-		/* fallthrough */
-	case 'A':
-		ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
-		    apps[setter].name, apps[setter].aspect, filename);
-		break;
+        case 'a':
+                write_lastwallpaper("aspect", filename);
+                /* fallthrough */
+        case 'A':
+                ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
+                    apps[setter].name, apps[setter].aspect, filename);
+                break;
 
-	case 't':
-		write_lastwallpaper("tile", filename);
-		/* fallthrough */
-	case 'T':
-		ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
-		    apps[setter].name, apps[setter].tile, filename);
-		break;
+        case 't':
+                write_lastwallpaper("tile", filename);
+                /* fallthrough */
+        case 'T':
+                ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
+                    apps[setter].name, apps[setter].tile, filename);
+                break;
 
-	case 'o':
-		write_lastwallpaper("rotate", filename);
-		ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
-		    apps[setter].name, apps[setter].full, filename);
-		break;
-	}
+        case 'o':
+                write_lastwallpaper("rotate", filename);
+                ret = snprintf(command, MAXPATHLEN, "%s %s \"%s\"",
+                    apps[setter].name, apps[setter].full, filename);
+                break;
+        }
 
-	if (ret < 0 || ret >= MAXPATHLEN)
-		errx(1, "command to be executed too long");
+        if (ret < 0 || ret >= MAXPATHLEN)
+                errx(1, "command to be executed too long");
 
-	/* XXX system() ... Hard to avoid without dropping support for some
-	 * older setters. */
-	ret = system(command);
-/* 	exit(ret); */
-	free(command);
-	return (ret);
+        /* XXX system() ... Hard to avoid without dropping support for some
+         * older setters. */
+        ret = system(command);
+/*      exit(ret); */
+        free(command);
+        return (ret);
 }

@@ -30,16 +30,16 @@
 int
 checkextension(char *filename)
 {
-	char *extension = 0;
-	/* Search backwards in the string until we find a . */
-	if ((extension = strrchr(filename, '.')) != 0)
-		++extension;
-	if (extension)
-	{
-		if ((strcasecmp(extension, "jpg")) == 0 ||
-		    (strcasecmp(extension, "png")) == 0 ||
-		    (strcasecmp(extension, "gif")) == 0)
-			return (TRUE);
-	}
-	return (FALSE);
+        char *extension = 0;
+        /* Search backwards in the string until we find a . */
+        if ((extension = strrchr(filename, '.')) != 0)
+                ++extension;
+        if (extension)
+        {
+                if ((strcasecmp(extension, "jpg")) == 0 ||
+                    (strcasecmp(extension, "png")) == 0 ||
+                    (strcasecmp(extension, "gif")) == 0)
+                        return (TRUE);
+        }
+        return (FALSE);
 }

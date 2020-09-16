@@ -31,81 +31,81 @@ int
 write_lastwallpaper(char *option, char *wallpaper)
 {
 
-	char	       *lstwllpprarray[MAXLLW];
-	FILE	       *fp;
-	char	       *display, *tempstring;
-	int		i = 0, j, ret, found = FALSE;
+        char           *lstwllpprarray[MAXLLW];
+        FILE           *fp;
+        char           *display, *tempstring;
+        int             i = 0, j, ret, found = FALSE;
 
-	if ((display = getenv("DISPLAY")) == NULL)
-		errx (1, "the DISPLAY environment variable isn't set");
+        if ((display = getenv("DISPLAY")) == NULL)
+                errx (1, "the DISPLAY environment variable isn't set");
 
-	tempstring = malloc(MAXPATHLEN);
-	if (tempstring == NULL)
-		err(1, "out of memory");
+        tempstring = malloc(MAXPATHLEN);
+        if (tempstring == NULL)
+                err(1, "out of memory");
 
-	/* First read ~/.lastwallpaper into an array */
-	if ((fp = fopen(lastwallpaper, "r")) != NULL)
-	{
-		for (i = 0; i < MAXLLW; i++)
-		{
-			lstwllpprarray[i] = malloc(MAXPATHLEN);
-			if (lstwllpprarray[i] == NULL)
-				err(1, "out of memory");
+        /* First read ~/.lastwallpaper into an array */
+        if ((fp = fopen(lastwallpaper, "r")) != NULL)
+        {
+                for (i = 0; i < MAXLLW; i++)
+                {
+                        lstwllpprarray[i] = malloc(MAXPATHLEN);
+                        if (lstwllpprarray[i] == NULL)
+                                err(1, "out of memory");
 
 
-			if (fgets(lstwllpprarray[i], MAXPATHLEN, fp) == NULL)
-				break;
-		}
+                        if (fgets(lstwllpprarray[i], MAXPATHLEN, fp) == NULL)
+                                break;
+                }
 
-		/* Add sanity */
-		if (fclose(fp) != 0)
-			err(1, "error");
-	} else {
-		/* Initiate  variable */
-		lstwllpprarray[0] = malloc(MAXPATHLEN);
-		if (lstwllpprarray[0] == NULL)
-			err(1, "out of memory");
+                /* Add sanity */
+                if (fclose(fp) != 0)
+                        err(1, "error");
+        } else {
+                /* Initiate  variable */
+                lstwllpprarray[0] = malloc(MAXPATHLEN);
+                if (lstwllpprarray[0] == NULL)
+                        err(1, "out of memory");
 
-		lstwllpprarray[0][0] = '\0';
-	}
+                lstwllpprarray[0][0] = '\0';
+        }
 
-	/* And then  write all lines back again. */
-	if ((fp = fopen(lastwallpaper, "w")) == NULL)
-		err(1, "%s", lastwallpaper);
+        /* And then  write all lines back again. */
+        if ((fp = fopen(lastwallpaper, "w")) == NULL)
+                err(1, "%s", lastwallpaper);
 
-	for (j = 0; j <= i; j++)
-	{
-		if (lstwllpprarray[j][0] != '\0' && lstwllpprarray[j][0] != '\n')
-		{
-			ret = snprintf(tempstring,
-			    MAXPATHLEN, "|%s\n", display);
-			if (ret < 0 || ret >= MAXPATHLEN)
-			{
-				fclose(fp);
-				errx(1, "error while trying to backup %s",
-				    lastwallpaper);
-			}
-			/* If a line matching the current DISPLAY is
-			 * found overwrite it. */
-			if (strstr(lstwllpprarray[j], tempstring))
-			{
-				fprintf(fp, "%s|%s|%s\n",
-				    option, wallpaper, display);
-				found = TRUE;
-			}
-			/* or else keep it. */
-			else
-				fprintf(fp, "%s", lstwllpprarray[j]);
+        for (j = 0; j <= i; j++)
+        {
+                if (lstwllpprarray[j][0] != '\0' && lstwllpprarray[j][0] != '\n')
+                {
+                        ret = snprintf(tempstring,
+                            MAXPATHLEN, "|%s\n", display);
+                        if (ret < 0 || ret >= MAXPATHLEN)
+                        {
+                                fclose(fp);
+                                errx(1, "error while trying to backup %s",
+                                    lastwallpaper);
+                        }
+                        /* If a line matching the current DISPLAY is
+                         * found overwrite it. */
+                        if (strstr(lstwllpprarray[j], tempstring))
+                        {
+                                fprintf(fp, "%s|%s|%s\n",
+                                    option, wallpaper, display);
+                                found = TRUE;
+                        }
+                        /* or else keep it. */
+                        else
+                                fprintf(fp, "%s", lstwllpprarray[j]);
 
-		}
-		free(lstwllpprarray[j]);
-	}
-	if (found == FALSE)
-		fprintf(fp, "%s|%s|%s\n", option, wallpaper, display);
+                }
+                free(lstwllpprarray[j]);
+        }
+        if (found == FALSE)
+                fprintf(fp, "%s|%s|%s\n", option, wallpaper, display);
 
-	if (fclose(fp) != 0)
-		err(1, "error");
+        if (fclose(fp) != 0)
+                err(1, "error");
 
-	free(tempstring);
-	return (TRUE);
+        free(tempstring);
+        return (TRUE);
 }

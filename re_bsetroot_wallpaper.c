@@ -29,22 +29,22 @@
 int
 re_bsetroot_wallpaper(char *arguments)
 {
-	char **ap, *options[MAXARGS];
+        char **ap, *options[MAXARGS];
 
-	/* execvp uses argv[0] as the command. But it has to be initialized, or
-	 * else execvp runs into a null string. */
-	options[0] = "blah";
+        /* execvp uses argv[0] as the command. But it has to be initialized, or
+         * else execvp runs into a null string. */
+        options[0] = "blah";
 
-	/* Now read the arguments into array. */
-	for (ap = &options[1]; ap <= &options[MAXARGS] &&
-		 (*ap = strsep(&arguments, " ")) != NULL;)
-	{
-		if (**ap != '\0')
-			ap++;
-	}
-	*ap = NULL;
+        /* Now read the arguments into array. */
+        for (ap = &options[1]; ap <= &options[MAXARGS] &&
+                 (*ap = strsep(&arguments, " ")) != NULL;)
+        {
+                if (**ap != '\0')
+                        ap++;
+        }
+        *ap = NULL;
 
-	/* bsetroot doesn't return errors so what the hell. */
-	execvp("bsetroot", options);
-	exit(0);
+        /* bsetroot doesn't return errors so what the hell. */
+        execvp("bsetroot", options);
+        exit(0);
 }
